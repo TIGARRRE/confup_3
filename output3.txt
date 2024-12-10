@@ -1,0 +1,42 @@
+environment -> {
+  title -> 'Ocean'
+  version -> 2.0
+  features -> {
+    tracking_enabled -> True
+    weather_updates -> True
+    passenger_limit -> 300
+  }
+  settings -> {
+    max_boats -> 20
+    delay_time -> 60
+    unique_identifier -> 'ocean_id'
+  }
+  storage -> {
+    server_info -> {
+      address -> 'db.oceanvoyager.com'
+      port -> 5432
+    }
+    access -> {
+      user -> 'marina'
+      pass -> 'securepass'
+    }
+    database_name -> 'ocean'
+  }
+  api_info -> {
+    api_version -> 'v2.0'
+    routes -> {
+      get_data -> 'fetchData'
+      post_data -> 'sendData'
+    }
+  }
+  preferences -> {
+    timeout_setting -> '@(delay_time)'
+    connection_limit -> '@(max_boats)'
+  }
+  alerts -> {
+    welcome_message -> 'welcome'
+    farewell_message -> 'THX!!!'
+    error_notification -> 'ERR!!!'
+  }
+  description -> 'ZXC'
+}
