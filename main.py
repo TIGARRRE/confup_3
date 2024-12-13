@@ -5,7 +5,7 @@ import argparse
 def parse_yaml(yaml_string):
     try:
         data = yaml.safe_load(yaml_string)
-        # Проверка на наличие неопределенных констант
+
         if any('@(undefined_constant)' in str(value) for value in data.values()):
             return None
         return data
@@ -17,13 +17,13 @@ def resolve_constants(data):
     
     def replace_constants(value):
         if isinstance(value, str):
-            # Substitute the value with the constant
+          
             result = re.sub(r'@\((\w+)\)', lambda match: str(constants.get(match.group(1), match.group(0))), value)
-            # Try to convert to integer if possible
+
             try:
                 return int(result)
             except ValueError:
-                return result  # Keep as string if not a valid integer
+                return result  
         return value
 
     def process_data(data):
