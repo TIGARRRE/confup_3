@@ -54,9 +54,9 @@ def convert_to_custom_language(data):
                 output.append(line + "{")
                 convert(value, indent + 2)
                 output.append(' ' * indent + "}")
-            elif isinstance(value, str):  # Keep quotes for strings
+            elif isinstance(value, str):  
                 output.append(line + f"'{value}'")
-            elif isinstance(value, (int, float)):  # Add quotes for integers and floats
+            elif isinstance(value, (int, float)): 
                 output.append(line + f"'{value}'")
             elif isinstance(value, bool):
                 output.append(line + str(value).lower())
@@ -68,14 +68,13 @@ def convert_to_custom_language(data):
     return '\n'.join(output)
 
 def main():
-    # Настройка аргументов командной строки
+
     parser = argparse.ArgumentParser(description='Обработка YAML конфигурации.')
     parser.add_argument('input_file', type=str, help='Путь к входному YAML файлу')
     parser.add_argument('output_file', type=str, help='Путь к выходному файлу для записи результата')
 
     args = parser.parse_args()
 
-    # Чтение YAML из файла
     input_file = args.input_file
     output_file = args.output_file
 
@@ -88,7 +87,6 @@ def main():
         print("Ошибка: данные должны быть в формате словаря.")
         return
 
-    # Обработка констант
     data = resolve_constants(data)
 
     custom_language_output = convert_to_custom_language(data)

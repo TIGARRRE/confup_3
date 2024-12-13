@@ -1,6 +1,6 @@
 import unittest
 import yaml
-from main import parse_yaml, resolve_constants, convert_to_custom_language  # Импортируйте ваши функции
+from main import parse_yaml, resolve_constants, convert_to_custom_language 
 
 class TestYAMLProcessing(unittest.TestCase):
 
@@ -39,26 +39,26 @@ class TestYAMLProcessing(unittest.TestCase):
 
     def test_parse_invalid_yaml(self):
         data = parse_yaml(self.invalid_yaml)
-        self.assertIsNone(data)  # Ожидаем, что результат будет None
+        self.assertIsNone(data)  
 
     def test_resolve_constants(self):
         data = parse_yaml(self.valid_yaml)
         resolved_data = resolve_constants(data)
-        self.assertEqual(resolved_data['app']['settings']['connection_limit'], 100)  # Now should pass
+        self.assertEqual(resolved_data['app']['settings']['connection_limit'], 100)  
         self.assertEqual(resolved_data['app']['settings']['response_timeout'], 30)
 
 
    
     def test_resolve_constants_with_undefined(self):
         data = parse_yaml(self.invalid_yaml)
-        self.assertIsNone(data)  # Ожидаем, что результат будет None
+        self.assertIsNone(data)  
         
     def test_convert_to_custom_language(self):
         data = parse_yaml(self.valid_yaml)
         resolved_data = resolve_constants(data)
         output = convert_to_custom_language(resolved_data)
         self.assertIn("title -> 'TestApp'", output)
-        self.assertIn("connection_limit -> '100'", output)  # Added quotes to match the output
+        self.assertIn("connection_limit -> '100'", output)  
         self.assertIn("welcome -> 'Welcome to TestApp!'", output)
 
 def test_convert_with_nested_structure(self):
@@ -75,8 +75,8 @@ def test_convert_with_nested_structure(self):
     resolved_data = resolve_constants(data)
     output = convert_to_custom_language(resolved_data)
     self.assertIn("title -> 'NestedApp'", output)
-    self.assertIn("logging -> True", output)  # Изменено на True
-    self.assertIn("enabled -> False", output)  # Изменено на False
+    self.assertIn("logging -> True", output)  
+    self.assertIn("enabled -> False", output)  
     self.assertIn("level -> 'info'", output)
 
 if __name__ == '__main__':
