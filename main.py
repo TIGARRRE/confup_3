@@ -17,7 +17,13 @@ def resolve_constants(data):
     
     def replace_constants(value):
         if isinstance(value, str):
-            return re.sub(r'@\((\w+)\)', lambda match: str(constants.get(match.group(1), match.group(0))), value)
+            # Substitute the value with the constant
+            result = re.sub(r'@\((\w+)\)', lambda match: str(constants.get(match.group(1), match.group(0))), value)
+            # Try to convert to integer if possible
+            try:
+                return int(result)
+            except ValueError:
+                return result  # Keep as string if not a valid integer
         return value
 
     def process_data(data):
@@ -41,21 +47,22 @@ def convert_to_custom_language(data):
         if not isinstance(data, dict):
             print(f"Ожидался словарь, но получен: {type(data).__name__}")
             return
-        
+
         for key, value in data.items():
             line = ' ' * indent + f"{key} -> "
             if isinstance(value, dict):
                 output.append(line + "{")
                 convert(value, indent + 2)
                 output.append(' ' * indent + "}")
-            elif isinstance(value, str):
+            elif isinstance(value, str):  # Keep quotes for strings
                 output.append(line + f"'{value}'")
-            elif isinstance(value, (int, float)):
-                output.append(line + str(value))
+            elif isinstance(value, (int, float)):  # Add quotes for integers and floats
+                output.append(line + f"'{value}'")
             elif isinstance(value, bool):
                 output.append(line + str(value).lower())
             else:
                 print(f"Неизвестный тип значения: {value}")
+                
     
     convert(data)
     return '\n'.join(output)

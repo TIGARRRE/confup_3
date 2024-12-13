@@ -4,7 +4,7 @@ environment -> {
   features -> {
     tracking_enabled -> True
     weather_updates -> True
-    passenger_limit -> 300
+    passenger_limit -> 303
   }
   settings -> {
     max_boats -> 20
